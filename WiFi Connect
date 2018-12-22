@@ -7,7 +7,7 @@ def connect_wifi():
 
 
     profile = pywifi.Profile()  # 配置文件
-    profile.ssid = "acewill"  # wifi名称
+    profile.ssid = " i-NUIST"  # wifi名称 #直接改为i-NUIST
     profile.auth = const.AUTH_ALG_OPEN  # 需要密码
     profile.akm.append(const.AKM_TYPE_WPA2PSK)  # 加密类型
     profile.cipher = const.CIPHER_TYPE_CCMP  # 加密单元
