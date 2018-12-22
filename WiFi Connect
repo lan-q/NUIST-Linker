@@ -9,9 +9,14 @@ def connect_wifi():
     profile = pywifi.Profile()  # 配置文件
     profile.ssid = " i-NUIST"  # wifi名称 #直接改为i-NUIST
     profile.auth = const.AUTH_ALG_OPEN  # 需要密码
-    profile.akm.append(const.AKM_TYPE_WPA2PSK)  # 加密类型
-    profile.cipher = const.CIPHER_TYPE_CCMP  # 加密单元
-    profile.key = '4000103000' #wifi密码
+    
+   # profile.akm.append(const.AKM_TYPE_WPA2PSK)  # 加密类型
+   # profile.cipher = const.CIPHER_TYPE_CCMP  # 加密单元
+   # profile.key = '4000103000' #wifi密码
+   '''
+   需要根据学校wifi修改连接配置
+   明天我来改一下。
+   '''
 
     ifaces.remove_all_network_profiles()  # 删除其他配置文件
     tmp_profile = ifaces.add_network_profile(profile)  # 加载配置文件
