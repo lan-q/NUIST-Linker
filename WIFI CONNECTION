@@ -1,0 +1,20 @@
+def connect_wifi():
+    wifi = pywifi.PyWiFi()  
+    ifaces = wifi.interfaces()[0]  
+    print(ifaces.name())  
+    ifaces.disconnect() 
+    time.sleep(3)  
+
+    ifaces.remove_all_network_profiles()  
+    tmp_profile = ifaces.add_network_profile(profile) 
+
+    ifaces.connect(tmp_profile) 
+    time.sleep(10) 
+    isok = True
+    if ifaces.status() == const.IFACE_CONNECTED:
+        print("成功连接")
+    else:
+        print("失败")
+    #ifaces.disconnect()  
+    time.sleep(1)
+    return isok
