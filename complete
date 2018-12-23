@@ -1,0 +1,25 @@
+import requests   #导入库
+import base64
+
+def login(username='账号',password='密码',domain='CMCC'):     #要输入账号密码啊。。。
+    password = base64.b64encode(password.encode()).decode()   #base64加密。。
+    url="http://a.nuist.edu.cn/index.php/index/login"    
+    dv={   #构造data
+        'username':username,
+        'domain':domain,
+        'password':password,
+        'enablemacauth':0
+        }
+    try:      #用try来防止未知错误。
+        r = requests.post(url,data=dv)   #发送post
+        r.raise_for_status()    #错误抛出异常
+        return r.json()      #返回json格式的数据
+    except:
+        print('error')
+
+#下面输入你的账号密码，运营商：移动CMCC 联通Unicom 电信ChinaNet
+dic=login('18362086320','666999','CMCC') # 这是我的账号密码
+for i in list(dic.keys()):             
+    if dic[i]:
+        print(i+":"+str(dic[i]))   #输出登陆信息，成功与否
+    input()
