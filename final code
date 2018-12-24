@@ -1,0 +1,41 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import Select
+import os
+from pywifi import PyWiFi,const,Profile
+#各个库只需要部分模块，所以用from…import即可
+wifi=PyWiFi()
+iface=wifi.interfaces()[0]
+iface.disconnect()
+‘’’
+由于在学校使用，为了提高登录效率，直接跳过扫描的步骤
+如果需要扫描，可以使用pywifi中的scan，获取wifi的ssid并与i-NUIST比较
+‘’’
+profile_info=Profile()
+profile_info.ssid='i-NUIST'
+profile_info.auth=const.AUTH_ALG_OPEN
+profile_info.akm.append(const.AKM_TYPE_NONE)
+#根据学校wifi的连接特点配置信息
+iface.remove_all_network_profiles()
+tmp_profile=iface.add_network_profile(profile_info)
+iface.connect(tmp_profile)
+#以上是连接wifi的代码，经使用测试，连接成功率很高。
+
+option = webdriver.ChromeOptions()
+option.add_argument('headless') #用无头模式就不会弹出网页了
+driver = webdriver.Chrome(chrome_options=option)
+url = 'http://a.nuist.edu.cn'
+driver.get(url)
+elem_username = driver.find_element_by_id("username")
+elem_username.send_keys("这里填手机号")
+elem_password = driver.find_element_by_id("password")
+elem_password.send_keys("这里填密码")
+Select(driver.find_element_by_id("domain")).select_by_value('CMCC')
+elem_login = driver.find_element_by_id("login")
+elem_login.click()
+#以上是用selenium的webdirver模块实现的填写表单、模拟点击
+os.system("taskkill /F /IM Chrome.exe")
+os.system("taskkill /F /IM conhost.exe")  #  最后把浏览器和命令行程序的宿主进程关掉
+‘’’
+可以将程序打包成exe格式，并配置好相关参数，这样运行时就不会有命令行的黑框。
+将exe文件加入到Windows自带的开机启动任务中就可以实现开机自动连接wifi
+‘’’
