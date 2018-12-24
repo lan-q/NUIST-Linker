@@ -1,0 +1,12 @@
+页面元素的填写
+
+#html
+<input name="username" type="text" id="username" value=""/>
+<input name="password" type="password" id="password" value=""/>
+ '''
+ 您这是python吗？
+ 怎么还有<></>这种东西的？
+ '''
+#在后台
+iput=web.input(username=None,password=None)
+#看不懂 没法改
